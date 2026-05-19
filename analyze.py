@@ -7,33 +7,28 @@ if __name__ == "__main__":
     report = f"""🚀 AI 硬件爆发趋势日报
 时间：{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
 
-系统已成功运行！
-这是第一封测试邮件。
+这是系统发送的第一封测试邮件。
 
-后续将自动添加：
-- Google Trends 搜索热度
-- Amazon 热销 AI 硬件
-- Kickstarter 爆发项目
+如果收到这封邮件，说明邮件通知功能已成功！
 
-每天北京时间下午4点自动发送。"""
+后续将逐步加入 Google Trends、Amazon、Kickstarter 数据。"""
 
     email = os.getenv("EMAIL_ADDRESS")
     password = os.getenv("EMAIL_PASSWORD")
 
     if email and password:
         msg = MIMEText(report, "plain", "utf-8")
-        msg["Subject"] = "🚀 AI硬件趋势日报"
+        msg["Subject"] = "🚀 AI硬件趋势日报 - 测试"
         msg["From"] = email
         msg["To"] = email
 
         try:
-            # QQ邮箱使用 smtp.qq.com
             server = smtplib.SMTP_SSL("smtp.qq.com", 465)
             server.login(email, password)
             server.sendmail(email, email, msg.as_string())
             server.quit()
-            print("✅ 邮件发送成功！请查收邮箱")
+            print("✅ 邮件发送成功！请查收邮箱（包括垃圾邮件箱）")
         except Exception as e:
-            print("❌ 邮件发送失败:", e)
+            print("❌ 邮件发送失败:", str(e))
     else:
-        print("❌ 未找到邮箱 Secret")
+        print("❌ 未找到 EMAIL_ADDRESS 或 EMAIL_PASSWORD Secret")
