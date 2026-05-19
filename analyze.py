@@ -11,7 +11,7 @@ if __name__ == "__main__":
 
 如果收到这封邮件，说明邮件通知功能已成功！
 
-后续将逐步加入 Google Trends、Amazon、Kickstarter 数据。"""
+后续将逐步加入 Google Trends、Amazon、Kickstarter 数据分析。"""
 
     email = os.getenv("EMAIL_ADDRESS")
     password = os.getenv("EMAIL_PASSWORD")
@@ -31,4 +31,4 @@ if __name__ == "__main__":
         except Exception as e:
             print("❌ 邮件发送失败:", str(e))
     else:
-        print("❌ 未找到 EMAIL_ADDRESS 或 EMAIL_PASSWORD Secret")
+        print("❌ 未找到 EMAIL_ADDRESS 或 EMAIL_PASSWORD，请检查 Secret")
