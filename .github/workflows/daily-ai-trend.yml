@@ -1,0 +1,26 @@
+name: Daily AI Hardware Trend to Feishu
+
+on:
+  schedule:
+    - cron: '0 8 * * *'     # 每天北京时间下午4点
+  workflow_dispatch:        # 允许手动测试
+
+jobs:
+  analyze:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          pip install pytrends pandas requests beautifulsoup4 lxml
+
+      - name: Run analysis and send to Feishu
+        run: python analyze.py
+        env:
+          LARK_WEBHOOK: ${{ secrets.LARK_WEBHOOK }}
